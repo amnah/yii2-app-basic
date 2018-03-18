@@ -1,6 +1,6 @@
 <?php
 
-$config = require_once __DIR__ . '/web.php';
+$config = require __DIR__ . '/web.php';
 
 $config['id'] .= '-console';
 $config['controllerNamespace'] = 'app\commands';
