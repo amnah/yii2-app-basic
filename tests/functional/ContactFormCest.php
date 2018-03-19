@@ -27,28 +27,28 @@ class ContactFormCest
     public function submitFormWithIncorrectEmail(\FunctionalTester $I)
     {
         $I->submitForm('#contact-form', [
-            'ContactForm[name]' => 'tester',
-            'ContactForm[email]' => 'tester.email',
-            'ContactForm[subject]' => 'test subject',
-            'ContactForm[body]' => 'test content',
-            'ContactForm[verifyCode]' => 'testme',
+            'DynamicModel[name]' => 'tester',
+            'DynamicModel[email]' => 'tester.email',
+            'DynamicModel[subject]' => 'test subject',
+            'DynamicModel[body]' => 'test content',
+            'DynamicModel[verifyCode]' => 'testme',
         ]);
         $I->expectTo('see that email address is wrong');
         $I->dontSee('Name cannot be blank', '.help-inline');
         $I->see('Email is not a valid email address.');
         $I->dontSee('Subject cannot be blank', '.help-inline');
         $I->dontSee('Body cannot be blank', '.help-inline');
-        $I->dontSee('The verification code is incorrect', '.help-inline');        
+        $I->dontSee('The verification code is incorrect', '.help-inline');
     }
 
     public function submitFormSuccessfully(\FunctionalTester $I)
     {
         $I->submitForm('#contact-form', [
-            'ContactForm[name]' => 'tester',
-            'ContactForm[email]' => 'tester@example.com',
-            'ContactForm[subject]' => 'test subject',
-            'ContactForm[body]' => 'test content',
-            'ContactForm[verifyCode]' => 'testme',
+            'DynamicModel[name]' => 'tester',
+            'DynamicModel[email]' => 'tester@example.com',
+            'DynamicModel[subject]' => 'test subject',
+            'DynamicModel[body]' => 'test content',
+            'DynamicModel[verificationCode]' => 'testme',
         ]);
         $I->seeEmailIsSent();
         $I->dontSeeElement('#contact-form');

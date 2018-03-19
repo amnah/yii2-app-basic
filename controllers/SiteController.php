@@ -3,12 +3,13 @@
 namespace app\controllers;
 
 use Yii;
+use yii\base\DynamicModel;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\components\EmailManager;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -105,8 +106,16 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+        $defaultAttributes = ['name' => '', 'email' => '', 'subject' => '', 'body' => '', 'verificationCode' => ''];
+        $model = new DynamicModel($defaultAttributes);
+        $model->addRule(['name', 'email', 'subject', 'body'], 'required')
+            ->addRule(['email'], 'email')
+            ->addRule(['verificationCode'], 'captcha', ['captchaAction' => $this->getUniqueId() . '/captcha']);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            /** @var EmailManager $emailManager */
+            $emailManager = Yii::$app->emailManager;
+            $emailManager->sendContactEmail($model);
             Yii::$app->session->setFlash('contactFormSubmitted');
 
             return $this->refresh();

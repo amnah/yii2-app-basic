@@ -38,7 +38,11 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'emailManager' => [
+            'class' => 'app\components\EmailManager'
+        ],
         'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => env('MAIL_FILE_TRANSPORT'),
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
