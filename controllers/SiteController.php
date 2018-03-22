@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\components\EmailManager;
-use app\models\LoginForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -76,9 +76,19 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        $attributes = ['username' => '', 'password' => '', 'rememberMe' => true];
+        $model = new DynamicModel($attributes);
+        $model->addRule(['username', 'password'], 'required')
+            ->addRule(['rememberMe'], 'boolean');
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = User::findByUsername(trim($model->username));
+            if (!$user || !$user->validatePassword($model->password)) {
+                $model->addError('username', 'Incorrect username or password.');
+            } else {
+                Yii::$app->user->login($user, $model->rememberMe ? 3600*24*30 : 0);
+                return $this->goBack();
+            }
         }
 
         $model->password = '';
@@ -106,8 +116,8 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $defaultAttributes = ['name' => '', 'email' => '', 'subject' => '', 'body' => '', 'verificationCode' => ''];
-        $model = new DynamicModel($defaultAttributes);
+        $attributes = ['name' => '', 'email' => '', 'subject' => '', 'body' => '', 'verificationCode' => ''];
+        $model = new DynamicModel($attributes);
         $model->addRule(['name', 'email', 'subject', 'body'], 'required')
             ->addRule(['email'], 'email')
             ->addRule(['verificationCode'], 'captcha', ['captchaAction' => $this->getUniqueId() . '/captcha']);
