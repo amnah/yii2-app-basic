@@ -8,8 +8,8 @@
  * @license http://www.yiiframework.com/license/
  */
 
-require __DIR__ . '../../vendor/autoload.php';
-require __DIR__ . '../../functions.php';
+require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../../functions.php';
 
 defined('YII_ENV') or define('YII_ENV', 'test');
 defined('YII_DEBUG') or define('YII_DEBUG', true);
