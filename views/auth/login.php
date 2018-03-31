@@ -21,7 +21,7 @@ $this->title = 'Login';
                         <p>After logging in, you will be redirected to <strong><?= Yii::$app->user->getReturnUrl() ?></strong></p>
                     <?php endif; ?>
 
-                    <?= Html::beginForm('', 'post', ['class' => 'form-horizontal']) ?>
+                    <?= Html::beginForm('', 'post', ['id' => 'login-form', 'class' => 'form-horizontal']) ?>
 
                     <?php $field = 'email'; ?>
                     <div class="form-group <?= $model->hasErrors($field) ? 'has-error' : '' ?>">

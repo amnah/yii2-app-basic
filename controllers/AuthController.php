@@ -95,7 +95,7 @@ class AuthController extends Controller
         $success = false;
         $user = new User;
         $user->setScenario(User::SCENARIO_REGISTER);
-        if ($user->loadPostAndSave()) {
+        if ($user->loadPostAndValidate()) {
             /** @var EmailManager $emailManager */
             $user->setConfirmationToken();
             $emailManager = Yii::$app->emailManager;
