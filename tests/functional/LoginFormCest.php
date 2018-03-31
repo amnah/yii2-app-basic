@@ -1,7 +1,18 @@
 <?php
 
+use app\tests\fixtures\UserFixture;
+
 class LoginFormCest
 {
+    public function _fixtures()
+    {
+        return [
+            'users' => [
+                'class' => UserFixture::class,
+            ],
+        ];
+    }
+
     public function _before(\FunctionalTester $I)
     {
         $I->amOnRoute('auth/login');
@@ -10,7 +21,6 @@ class LoginFormCest
     public function openLoginPage(\FunctionalTester $I)
     {
         $I->see('Login', 'div');
-
     }
 
     // demonstrates `amLoggedInAs` method
@@ -24,7 +34,8 @@ class LoginFormCest
     // demonstrates `amLoggedInAs` method
     public function internalLoginByInstance(\FunctionalTester $I)
     {
-        $I->amLoggedInAs(\app\models\User::findOne(['email' => 'neo@neo.com']));
+        $user = $I->grabFixture('users', 'user1');
+        $I->amLoggedInAs(\app\models\User::findOne(['email' => $user->email]));
         $I->amOnPage('/');
         $I->see('Logout');
     }
@@ -40,7 +51,7 @@ class LoginFormCest
     public function loginWithWrongCredentials(\FunctionalTester $I)
     {
         $I->submitForm('#login-form', [
-            'DynamicModel[email]' => 'neo',
+            'DynamicModel[email]' => 'wrong',
             'DynamicModel[password]' => 'wrong',
         ]);
         $I->expectTo('see validations errors');
