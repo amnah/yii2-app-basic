@@ -22,6 +22,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
+            'loginUrl' => ['auth/login'],
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'secure' => isset($_SERVER['HTTPS']) ],
         ],
@@ -43,6 +44,7 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@app/views/emails',
             'useFileTransport' => env('MAIL_FILE_TRANSPORT'),
             'transport' => [
                 'class' => 'Swift_SmtpTransport',

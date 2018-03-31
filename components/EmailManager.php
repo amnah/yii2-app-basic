@@ -5,6 +5,7 @@ namespace app\components;
 use Yii;
 use yii\base\BaseObject;
 use yii\base\DynamicModel;
+use yii\helpers\Url;
 use yii\mail\BaseMailer;
 use app\models\PasswordReset;
 use app\models\User;
@@ -43,32 +44,28 @@ class EmailManager extends BaseObject
     /**
      * Send confirmation email
      * @param User $user
-     * @param bool $viaApi
      * @return bool
      */
-    public function sendConfirmationEmail($user, $viaApi = false)
+    public function sendConfirmationEmail($user)
     {
-        $baseUrl = $viaApi ? '/app#/confirm' : '/auth/confirm';
-        $confirmUrl = url([$baseUrl, 'email' => $user->email, 'confirmation' => $user->confirmation], true);
-        return $this->compose('auth/confirmEmail', compact('user', 'confirmUrl'))
+        $confirmUrl = Url::to(['/auth/confirm', 'email' => $user->email, 'confirmation' => $user->confirmation], true);
+        return $this->mailer->compose('auth/confirmEmail', compact('user', 'confirmUrl'))
             ->setTo($user->email)
-            ->setSubject(trans('auth.confirmSubject'))
+            ->setSubject(Yii::t('app', 'Confirm Email'))
             ->send();
     }
 
     /**
      * Send reset email
      * @param PasswordReset $passwordReset
-     * @param bool $viaApi
      * @return bool
      */
-    public function sendResetEmail($passwordReset, $viaApi = false)
+    public function sendResetEmail($passwordReset)
     {
-        $baseUrl = $viaApi ? '/app#/reset' : '/auth/reset';
-        $resetUrl = url([$baseUrl, 'token' => $passwordReset->token], true);
-        return $this->compose('auth/resetPassword', compact('passwordReset', 'resetUrl'))
+        $resetUrl = Url::to(['auth/reset', 'token' => $passwordReset->token], true);
+        return $this->mailer->compose('auth/resetPassword', compact('passwordReset', 'resetUrl'))
             ->setTo($passwordReset->user->email)
-            ->setSubject(trans('auth.resetSubject'))
+            ->setSubject(Yii::t('app', 'Reset Password'))
             ->send();
     }
 }
