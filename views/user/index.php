@@ -1,8 +1,8 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var bool $success */
 /** @var app\models\User $user */
+/** @var bool $success */
 
 use yii\helpers\Html;
 

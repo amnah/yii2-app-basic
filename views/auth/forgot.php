@@ -1,8 +1,8 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var bool $success */
 /** @var yii\base\DynamicModel $model */
+/** @var bool $success */
 
 use yii\helpers\Html;
 use yii\helpers\Url;

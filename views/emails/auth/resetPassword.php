@@ -1,9 +1,8 @@
 <?php
 
-/* @var $this \yii\web\View view component instance */
-/* @var $message \yii\mail\MessageInterface the message being composed */
-/* @var $passwordReset \app\models\PasswordReset */
-/* @var $resetUrl string */
+/** @var yii\web\View $this */
+/** @var app\models\PasswordReset $passwordReset */
+/** @var string $resetUrl */
 
 ?>
 <p>Hello <?= $passwordReset->user->email ?>.</p>

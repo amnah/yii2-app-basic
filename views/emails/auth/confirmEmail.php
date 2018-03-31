@@ -1,9 +1,8 @@
 <?php
 
-/* @var $this \yii\web\View view component instance */
-/* @var $message \yii\mail\MessageInterface the message being composed */
-/* @var $user \app\models\User */
-/* @var $confirmUrl string */
+/** @var yii\web\View $this */
+/** @var app\models\User $user */
+/** @var string $confirmUrl */
 
 ?>
 <p>Hello <?= $user->email ?>.</p>

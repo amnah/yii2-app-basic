@@ -1,9 +1,9 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $success bool */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model yii\base\DynamicModel */
+/** @var yii\web\View $this */
+/** @var yii\bootstrap\ActiveForm $form */
+/** @var yii\base\DynamicModel $model */
+/** @var bool $success */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
