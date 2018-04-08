@@ -25,7 +25,7 @@ $this->title = 'Register';
 
                     <?php else: ?>
 
-                        <?= Html::beginForm('', 'post', ['class' => 'form-horizontal']) ?>
+                        <?= Html::beginForm('', 'post', ['id' => 'register-form', 'class' => 'form-horizontal']) ?>
 
                         <?php $field = 'email'; ?>
                         <div class="form-group <?= $user->hasErrors($field) ? 'has-error' : '' ?>">

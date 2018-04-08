@@ -52,6 +52,7 @@ class User extends BaseModel implements IdentityInterface
             [['email', 'username', 'password'], 'string', 'max' => 255],
             [['email', 'username', 'password'], 'required'],
             [['email', 'username'], 'trim'],
+            [['email'], 'email'],
             [['email'], 'unique'],
             [['username'], 'unique'],
             [['username'], 'string', 'min' => 2],

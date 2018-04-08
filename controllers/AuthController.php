@@ -119,7 +119,7 @@ class AuthController extends Controller
         if ($user) {
             $user->clearConfirmationToken();
             $this->performLogin($user, true);
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Emailed confirmed.'));
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Email confirmed.'));
             return $this->goHome();
         }
 
