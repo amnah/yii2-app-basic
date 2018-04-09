@@ -22,7 +22,7 @@ $this->title = 'Reset Password';
 
                     <?php else: ?>
 
-                        <?= Html::beginForm('', 'post', ['class' => 'form-horizontal']) ?>
+                        <?= Html::beginForm('', 'post', ['id' => 'reset-form', 'class' => 'form-horizontal']) ?>
 
                         <?php $field = 'email'; ?>
                         <div class="form-group">

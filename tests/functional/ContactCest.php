@@ -1,6 +1,6 @@
 <?php
 
-class ContactFormCest 
+class ContactCest
 {
     public function _before(\FunctionalTester $I)
     {

@@ -2,7 +2,7 @@
 
 use app\tests\fixtures\UserFixture;
 
-class RegisterFormCest
+class RegisterConfirmCest
 {
     public function _fixtures()
     {
@@ -16,11 +16,12 @@ class RegisterFormCest
     public function _before(\FunctionalTester $I)
     {
         $I->amOnRoute('auth/register');
+        Yii::$app->security->passwordHashCost = 8;
     }
 
     public function openPage(\FunctionalTester $I)
     {
-        $I->see('Register', 'div');
+        $I->see('Register');
     }
 
     public function registerWithEmptyCredentials(\FunctionalTester $I)
@@ -62,13 +63,13 @@ class RegisterFormCest
 
     public function registerSuccessfully(\FunctionalTester $I)
     {
+        file_put_contents('/var/www/basic/a.txt', Yii::$app->security->passwordHashCost);
         $I->submitForm('#register-form', [
             'User[email]' => 'neo3@neo.com',
             'User[username]' => 'neo3',
             'User[password]' => 'neo',
             'User[confirm_password]' => 'neo',
         ]);
-        $I->expectTo('see validations errors');
         $I->seeEmailIsSent();
         $I->see('please check your email');
     }
@@ -80,9 +81,11 @@ class RegisterFormCest
             'confirmation' => 'invalid_token',
         ]);
         $I->see('invalid token');
+
+        $user = $I->grabFixture('users', 'user2');
         $I->amOnRoute('auth/confirm', [
-            'email' => 'neo2@neo.com',
-            'confirmation' => 'confirmation_test',
+            'email' => $user->email,
+            'confirmation' => $user->confirmation,
         ]);
         $I->see('email confirmed');
     }

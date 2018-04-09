@@ -2,7 +2,7 @@
 
 use app\tests\fixtures\UserFixture;
 
-class LoginFormCest
+class LoginCest
 {
     public function _fixtures()
     {
@@ -20,7 +20,7 @@ class LoginFormCest
 
     public function openLoginPage(\FunctionalTester $I)
     {
-        $I->see('Login', 'div');
+        $I->see('Login');
     }
 
     // demonstrates `amLoggedInAs` method
@@ -56,6 +56,16 @@ class LoginFormCest
         ]);
         $I->expectTo('see validations errors');
         $I->see('Incorrect email or password.');
+    }
+
+    public function loginWithUnconfirmedAccount(\FunctionalTester $I)
+    {
+        $I->submitForm('#login-form', [
+            'DynamicModel[email]' => 'neo2',
+            'DynamicModel[password]' => 'neo',
+        ]);
+        $I->expectTo('see validations errors');
+        $I->see('address has not been confirmed');
     }
 
     public function loginSuccessfully(\FunctionalTester $I)

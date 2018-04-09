@@ -25,7 +25,7 @@ $this->title = 'Forgot Password';
 
                     <?php else: ?>
 
-                        <?= Html::beginForm('', 'post', ['class' => 'form-horizontal']) ?>
+                        <?= Html::beginForm('', 'post', ['id' => 'forgot-form', 'class' => 'form-horizontal']) ?>
 
                         <?php $field = 'email'; ?>
                         <div class="form-group <?= $model->hasErrors($field) ? 'has-error' : '' ?>">
