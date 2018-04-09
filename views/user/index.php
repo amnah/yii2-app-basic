@@ -22,7 +22,7 @@ $this->title = 'Account';
                         </div>
                     <?php endif; ?>
 
-                    <?= Html::beginForm('', 'post', ['class' => 'form-horizontal']) ?>
+                    <?= Html::beginForm('', 'post', ['id' => 'account-form', 'class' => 'form-horizontal']) ?>
 
                     <?php $field = 'username'; ?>
                     <div class="form-group <?= $user->hasErrors($field) ? 'has-error' : '' ?>">

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\User;
 use app\tests\fixtures\UserFixture;
 
 class LoginCest
@@ -35,7 +36,7 @@ class LoginCest
     public function internalLoginByInstance(\FunctionalTester $I)
     {
         $user = $I->grabFixture('users', 'user1');
-        $I->amLoggedInAs(\app\models\User::findOne(['email' => $user->email]));
+        $I->amLoggedInAs(User::findOne(['email' => $user->email]));
         $I->amOnPage('/');
         $I->see('Logout');
     }
