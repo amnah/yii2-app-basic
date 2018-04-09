@@ -71,10 +71,10 @@ class AuthController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $field = filter_var($model->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
             $user = User::findOne([$field => trim($model->email)]);
-            if (!$user || !$user->validatePassword($model->password)) {
-                $model->addError('email', Yii::t('app', 'Incorrect email or password.'));
-            } elseif ($user->confirmation) {
+            if ($user && $user->confirmation) {
                 $model->addError('email', Yii::t('app', 'Email address has not been confirmed - please check your email.'));
+            } else if (!$user || !$user->validatePassword($model->password)) {
+                $model->addError('email', Yii::t('app', 'Incorrect email or password.'));
             } else {
                 $this->performLogin($user, $model->rememberMe);
                 return $this->goBack();
