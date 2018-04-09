@@ -16,7 +16,6 @@ class RegisterConfirmCest
     public function _before(\FunctionalTester $I)
     {
         $I->amOnRoute('auth/register');
-        Yii::$app->security->passwordHashCost = 8;
     }
 
     public function openPage(\FunctionalTester $I)
@@ -63,7 +62,6 @@ class RegisterConfirmCest
 
     public function registerSuccessfully(\FunctionalTester $I)
     {
-        file_put_contents('/var/www/basic/a.txt', Yii::$app->security->passwordHashCost);
         $I->submitForm('#register-form', [
             'User[email]' => 'neo3@neo.com',
             'User[username]' => 'neo3',

@@ -150,7 +150,9 @@ class User extends BaseModel implements IdentityInterface
             $this->auth_key = Yii::$app->getSecurity()->generateRandomString();
         }
         if ($this->getDirtyAttributes(['password']) && $this->password) {
-            $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+            // set lower cost for test environment
+            $cost = YII_ENV_TEST ? 6 : null;
+            $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password, $cost);
         }
         return true;
     }

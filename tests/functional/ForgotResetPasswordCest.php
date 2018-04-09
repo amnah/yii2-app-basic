@@ -17,11 +17,6 @@ class ForgotResetPasswordCest
         ];
     }
 
-    public function _before(\FunctionalTester $I)
-    {
-        Yii::$app->security->passwordHashCost = 8;
-    }
-
     // --------------------------------------------------
     // Forgot page
     // --------------------------------------------------
