@@ -35,7 +35,7 @@ class LoginCest
     // demonstrates `amLoggedInAs` method
     public function internalLoginByInstance(\FunctionalTester $I)
     {
-        $user = $I->grabFixture('users', 'user1');
+        $user = $I->grabFixture('users', 'neo');
         $I->amLoggedInAs(User::findOne(['email' => $user->email]));
         $I->amOnPage('/');
         $I->see('Logout');

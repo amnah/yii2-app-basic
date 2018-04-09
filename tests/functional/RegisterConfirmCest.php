@@ -80,7 +80,7 @@ class RegisterConfirmCest
         ]);
         $I->see('invalid token');
 
-        $user = $I->grabFixture('users', 'user2');
+        $user = $I->grabFixture('users', 'neo2');
         $I->amOnRoute('auth/confirm', [
             'email' => $user->email,
             'confirmation' => $user->confirmation,

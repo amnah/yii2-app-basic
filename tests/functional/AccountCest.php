@@ -1,5 +1,6 @@
 <?php
 
+use app\tests\fixtures\PasswordResetFixture;
 use app\tests\fixtures\UserFixture;
 
 class AccountCest
@@ -10,12 +11,15 @@ class AccountCest
             'users' => [
                 'class' => UserFixture::class,
             ],
+            'passwordResets' => [
+                'class' => PasswordResetFixture::class,
+            ],
         ];
     }
 
     public function _before(\FunctionalTester $I)
     {
-        $user = $I->grabFixture('users', 'user1');
+        $user = $I->grabFixture('users', 'neo');
         $I->amLoggedInAs($user);
         $I->amOnRoute('user');
     }
@@ -38,7 +42,7 @@ class AccountCest
 
     public function checkExistingUsername(\FunctionalTester $I)
     {
-        $user = $I->grabFixture('users', 'user2');
+        $user = $I->grabFixture('users', 'neo2');
         $I->submitForm('#account-form', [
             'User[username]' => $user->username,
         ]);
@@ -48,7 +52,7 @@ class AccountCest
 
     public function checkOwnUsername(\FunctionalTester $I)
     {
-        $user = $I->grabFixture('users', 'user1');
+        $user = $I->grabFixture('users', 'neo');
         $I->submitForm('#account-form', [
             'User[username]' => $user->username,
         ]);

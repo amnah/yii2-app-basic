@@ -35,7 +35,7 @@ class UserTest extends \Codeception\Test\Unit
      */
     public function testValidateUser()
     {
-        $user = $this->tester->grabFixture('users', 'user1');
+        $user = $this->tester->grabFixture('users', 'neo');
         $user = User::findOne(['email' => $user->email]);
 
         expect_that($user->validatePassword('neo'));
