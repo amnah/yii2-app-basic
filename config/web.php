@@ -72,6 +72,7 @@ $config = [
             'tablePrefix' => env('DB_PREFIX'),
             'charset' => 'utf8',
             'enableSchemaCache' => YII_ENV_PROD,
+            'emulatePrepare' => false,
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
