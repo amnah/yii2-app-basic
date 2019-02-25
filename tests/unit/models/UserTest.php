@@ -1,6 +1,6 @@
 <?php
 
-namespace app\tests\unit\models;
+namespace tests\unit\models;
 
 use app\models\User;
 use app\tests\fixtures\UserFixture;
