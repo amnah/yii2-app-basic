@@ -53,11 +53,11 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $attributes = ['name' => '', 'email' => '', 'subject' => '', 'body' => '', 'verificationCode' => ''];
+        $attributes = ['name' => '', 'email' => '', 'subject' => '', 'body' => '', 'verifyCode' => ''];
         $model = new DynamicModel($attributes);
         $model->addRule(['name', 'email', 'subject', 'body'], 'required')
             ->addRule(['email'], 'email')
-            ->addRule(['verificationCode'], 'captcha', ['captchaAction' => $this->getUniqueId() . '/captcha']);
+            ->addRule(['verifyCode'], 'captcha', ['captchaAction' => $this->getUniqueId() . '/captcha']);
 
         $success = false;
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
