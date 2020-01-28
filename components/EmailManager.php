@@ -35,7 +35,8 @@ class EmailManager extends BaseObject
     public function sendContactEmail($contactForm) {
         return $this->mailer->compose()
             ->setTo(Yii::$app->params['adminEmail'])
-            ->setFrom([$contactForm->email => $contactForm->name])
+            ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+            ->setReplyTo([$contactForm->email => $contactForm->name])
             ->setSubject($contactForm->subject)
             ->setTextBody($contactForm->body)
             ->send();
